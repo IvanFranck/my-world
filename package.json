@@ -7,9 +7,13 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "test": "turbo test",
-    "clean": "turbo clean && rm -rf node_modules .turbo"
+    "clean": "turbo clean && rm -rf node_modules .turbo",
+    "test:critical": "pnpm --filter @my-website/auth-service test:e2e",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "turbo": "^2.7.1",
     "typescript": "5.9.2"
