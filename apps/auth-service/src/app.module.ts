@@ -13,7 +13,7 @@ import { openAPI } from 'better-auth/plugins';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        PORT: Joi.number().default(3000),
+        PORT: Joi.number().default(3001),
         DATABASE_URL: Joi.string().required(),
         BETTER_AUTH_URL: Joi.string().required(),
         BETTER_AUTH_SECRET: Joi.string().required(),
