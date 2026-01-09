@@ -2,7 +2,10 @@
 import { Injectable, HttpException, Logger } from '@nestjs/common';
 import { HttpClientService } from './http-client.service';
 import { CircuitBreakerService } from './circuit-breaker.service';
-import { getServiceConfig, ServiceName } from '../config/services.config';
+import {
+  getServiceConfig,
+  ServiceName,
+} from '../common/config/services.config';
 import { AxiosError, AxiosRequestConfig } from 'axios';
 
 export interface ProxyOptions {

@@ -20,6 +20,12 @@ import { CircuitBreakerService } from './circuit-breaker.service';
     HttpClientService,
     CircuitBreakerService,
   ],
-  exports: [ProxyService],
+  exports: [
+    ProxyService,
+    RetryService,
+    HttpClientService,
+    HttpClientService,
+    CircuitBreakerService,
+  ],
 })
 export class ProxyModule {}

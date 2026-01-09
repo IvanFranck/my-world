@@ -27,6 +27,9 @@ import { openAPI } from 'better-auth/plugins';
           database: prismaAdapter(prisma, {
             provider: 'postgresql',
           }),
+          emailAndPassword: {
+            enabled: true,
+          },
           plugins: [openAPI()],
         }),
         middleware: (req, _res, next) => {
