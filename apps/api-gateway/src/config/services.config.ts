@@ -6,8 +6,12 @@ export interface ServiceConfig {
   retryDelay: number;
 }
 
-export const SERVICE_CONFIG: Record<string, ServiceConfig> = {
-  'auth-service': {
+export enum ServiceName {
+  AUTH_SERVICE = 'auth-service',
+}
+
+export const SERVICE_CONFIG: Record<ServiceName, ServiceConfig> = {
+  [ServiceName.AUTH_SERVICE]: {
     name: 'auth-service',
     baseUrl: process.env.AUTH_SERVICE_URL || 'http://localhost:3001',
     timeout: 5000,
@@ -16,7 +20,7 @@ export const SERVICE_CONFIG: Record<string, ServiceConfig> = {
   },
 };
 
-export const getServiceConfig = (name: string): ServiceConfig => {
+export const getServiceConfig = (name: ServiceName): ServiceConfig => {
   const config = SERVICE_CONFIG[name];
   if (!config) {
     throw new Error(`Service config not found for ${name}`);

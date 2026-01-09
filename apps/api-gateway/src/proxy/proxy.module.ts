@@ -3,6 +3,7 @@ import { ProxyService } from './proxy.service';
 import { HttpModule } from '@nestjs/axios';
 import { HttpClientService } from './http-client.service';
 import { RetryService } from './retry.service';
+import { CircuitBreakerService } from './circuit-breaker.service';
 
 @Module({
   imports: [
@@ -13,6 +14,12 @@ import { RetryService } from './retry.service';
       },
     }),
   ],
-  providers: [ProxyService, RetryService, HttpClientService],
+  providers: [
+    ProxyService,
+    RetryService,
+    HttpClientService,
+    CircuitBreakerService,
+  ],
+  exports: [ProxyService],
 })
 export class ProxyModule {}

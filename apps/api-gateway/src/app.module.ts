@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProxyModule } from './proxy/proxy.module';
 import * as Joi from 'joi';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthRoutesController } from './routes/auth-routes.controller';
 
 @Module({
   imports: [
@@ -23,7 +22,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     ProxyModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AuthRoutesController],
+  providers: [],
 })
 export class AppModule {}
