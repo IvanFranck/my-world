@@ -1,0 +1,24 @@
+{
+  "name": "@my-website/constants",
+  "version": "0.1.0",
+  "description": "Shared TypeScript constants for my website monorepo",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "types",
+    "typescript",
+    "shared"
+  ],
+  "author": "ivan NZIMA",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {}
+}

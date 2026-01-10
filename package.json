@@ -4,12 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
+    "dev:api-gateway": "turbo dev --filter @my-website/api-gateway",
     "build": "turbo build",
     "lint": "turbo lint",
     "test": "turbo test",
     "clean": "turbo clean && rm -rf node_modules .turbo",
     "test:critical": "pnpm --filter @my-website/auth-service test:e2e",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "pnpm --filter @my-website/api-gateway exec eslint --fix",
+      "pnpm --filter @my-website/auth-service exec eslint --fix"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "husky": "^9.1.7",
