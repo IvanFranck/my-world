@@ -6,13 +6,14 @@ import {
   getServiceConfig,
   ServiceName,
 } from '../common/config/services.config';
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface ProxyOptions {
   headers?: Record<string, string>;
   params?: Record<string, unknown>;
   timeout?: number;
   useCircuitBreaker?: boolean;
+  forwardCookies?: boolean;
 }
 
 @Injectable()
@@ -31,7 +32,7 @@ export class ProxyService {
     serviceName: ServiceName,
     path: string,
     options: ProxyOptions = {},
-  ): Promise<T> {
+  ): Promise<{ data: T; cookies?: string[] }> {
     return this.proxyRequest<T>('GET', serviceName, path, undefined, options);
   }
 
@@ -43,7 +44,7 @@ export class ProxyService {
     path: string,
     body?: unknown,
     options: ProxyOptions = {},
-  ): Promise<T> {
+  ): Promise<{ data: T; cookies?: string[] }> {
     return this.proxyRequest<T>('POST', serviceName, path, body, options);
   }
 
@@ -55,7 +56,7 @@ export class ProxyService {
     path: string,
     body?: unknown,
     options: ProxyOptions = {},
-  ): Promise<T> {
+  ): Promise<{ data: T; cookies?: string[] }> {
     return this.proxyRequest<T>('PUT', serviceName, path, body, options);
   }
 
@@ -67,7 +68,7 @@ export class ProxyService {
     path: string,
     body?: unknown,
     options: ProxyOptions = {},
-  ): Promise<T> {
+  ): Promise<{ data: T; cookies?: string[] }> {
     return this.proxyRequest<T>('PATCH', serviceName, path, body, options);
   }
 
@@ -78,7 +79,7 @@ export class ProxyService {
     serviceName: ServiceName,
     path: string,
     options: ProxyOptions = {},
-  ): Promise<T> {
+  ): Promise<{ data: T; cookies?: string[] }> {
     return this.proxyRequest<T>(
       'DELETE',
       serviceName,
@@ -97,7 +98,7 @@ export class ProxyService {
     path: string,
     body?: unknown,
     options: ProxyOptions = {},
-  ): Promise<T> {
+  ): Promise<{ data: T; cookies?: string[] }> {
     const serviceConfig = getServiceConfig(serviceName);
     const url = this.buildUrl(serviceConfig.baseUrl, path);
 
@@ -110,26 +111,45 @@ export class ProxyService {
       timeout: options.timeout || serviceConfig.timeout,
     };
 
-    this.logger.log(`Proxying ${method} request to ${serviceName}: ${url}`);
+    this.logger.log(`Proxying POST request to ${serviceName}: ${url}`);
 
     try {
       // Utiliser circuit breaker si activé (par défaut true)
       const useCircuitBreaker = options.useCircuitBreaker !== false;
 
       if (useCircuitBreaker) {
-        return await this.circuitBreaker.execute<T>(serviceName, () =>
-          this.httpClient.request<T>(requestConfig),
+        const response: AxiosResponse<T> = await this.circuitBreaker.execute<
+          AxiosResponse<T>
+        >(
+          serviceName,
+          (): Promise<AxiosResponse<T>> =>
+            this.httpClient.request<T>(requestConfig),
         );
+
+        const setCookieHeaders = response.headers['set-cookie'];
+
+        return {
+          data: response.data,
+          cookies: setCookieHeaders || undefined,
+        };
       } else {
-        return await this.httpClient.request<T>(requestConfig);
+        const response: AxiosResponse<T> =
+          await this.httpClient.request<T>(requestConfig);
+
+        const setCookieHeaders = response.headers['set-cookie'];
+
+        return {
+          data: response.data,
+          cookies: setCookieHeaders || undefined,
+        };
       }
     } catch (error) {
-      const err = error as Error;
+      const err = error as AxiosError;
       this.logger.error(
         `Error proxying to ${serviceName}: ${err.message}`,
         err.stack,
       );
-      throw this.handleProxyError(error);
+      throw this.handleProxyError(err);
     }
   }
 
