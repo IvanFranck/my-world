@@ -80,15 +80,9 @@ export class AuthRoutesController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<SignOutResponse> {
-    const cookieHeader = req.headers.cookie;
-
     const result = await this.proxy.post<SignOutResponse>(
       ServiceName.AUTH_SERVICE,
       AUTH_ROUTES_PATHS.LOGOUT,
-      undefined,
-      {
-        headers: cookieHeader ? { cookie: cookieHeader } : {},
-      },
     );
 
     res.clearCookie(BETTER_AUTH_SESSION_TOKEN_NAME as string, {
@@ -114,10 +108,6 @@ export class AuthRoutesController {
       },
     );
 
-    this.logger.log(
-      `controller - get session response: ${JSON.stringify(result)}`,
-    );
-
     return result.data;
   }
 
@@ -132,10 +122,6 @@ export class AuthRoutesController {
       {
         headers: cookieHeader ? { cookie: cookieHeader } : {},
       },
-    );
-
-    this.logger.log(
-      `controller - get user infos response: ${JSON.stringify(result)}`,
     );
 
     return result.data;

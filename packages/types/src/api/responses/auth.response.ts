@@ -26,7 +26,7 @@ export interface SignOutResponse {
   success: boolean;
 }
 
-export interface GetSessionResponse {
+export type GetSessionResponse = {
   session: IUserSession;
   user: IUser;
-}
+} | null;

@@ -71,7 +71,6 @@ export class JwtAuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
         secret: this.configService.getOrThrow<string>('JWT_SECRET'),
       });
-      this.logger.log(`payload: ${JSON.stringify(payload)}`);
 
       // Attach user info to the request
       request['user'] = {
@@ -120,7 +119,7 @@ export class JwtAuthGuard implements CanActivate {
 
       const sessionData = session.data;
 
-      if (!sessionData.user) {
+      if (!sessionData?.user) {
         throw new UnauthorizedException('Invalid session');
       }
 
