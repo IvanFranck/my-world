@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// ARTICLES
+// ============================================
+
+model Article {
+  id          String        @id @default(uuid())
+  
+  // Contenu
+  title       String
+  slug        String        @unique
+  content     String        @db.Text
+  excerpt     String?       @db.VarChar(500)
+  coverImage  String?
+  
+  // SEO
+  metaTitle       String?   @db.VarChar(70)
+  metaDescription String?   @db.VarChar(160)
+  
+  // state and publication
+  status      ArticleStatus @default(DRAFT)
+  publishedAt DateTime?
+  scheduledAt DateTime?
+  
+  // Author (come from Auth Service, we just save the ID)
+  authorId    String
+  
+  // Relations
+  categories  Category[]
+  tags        Tag[]
+  
+  // Metrics
+  views       Int           @default(0)
+  
+  // Timestamps
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  @@index([status, publishedAt])
+  @@index([slug])
+  @@index([authorId])
+  @@map("articles")
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+  ARCHIVED
+}
+
+// ============================================
+// CATEGORIES
+// ============================================
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?   @db.Text
+  color       String?   @db.VarChar(7) // Hex color #RRGGBB
+  
+  // Relations
+  articles    Article[]
+  
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@index([slug])
+  @@map("categories")
+}
+
+// ============================================
+// TAGS
+// ============================================
+
+model Tag {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  
+  // Relations
+  articles  Article[]
+  
+  // Timestamps
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  @@index([slug])
+  @@map("tags")
+}
+
+// ============================================
+// MEDIA (pour plus tard)
+// ============================================
+
+model Media {
+  id          String    @id @default(uuid())
+  filename    String
+  originalName String
+  mimeType    String
+  size        Int       // en bytes
+  url         String
+  
+  // S3 info
+  bucket      String?
+  key         String?
+  
+  // Relation
+  uploadedBy  String    // userId
+  
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@index([uploadedBy])
+  @@map("media")
+}
