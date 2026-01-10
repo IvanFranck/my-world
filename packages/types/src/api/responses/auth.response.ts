@@ -1,3 +1,4 @@
+import { IUserSession } from "../../entities";
 import { IUser } from "../../entities/user.entity";
 
 export interface SignInEmailResponse {
@@ -23,4 +24,9 @@ export interface RefreshTokenResponse {
 
 export interface SignOutResponse {
   success: boolean;
+}
+
+export interface GetSessionResponse {
+  session: IUserSession;
+  user: IUser;
 }

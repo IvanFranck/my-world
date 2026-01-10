@@ -1,1 +1,5 @@
-export const IS_PUBLIC_KEY = 'isPublic';
+// keys
+export * from './keys';
+
+// routes paths
+export * from './routes';

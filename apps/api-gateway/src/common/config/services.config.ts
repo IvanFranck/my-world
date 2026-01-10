@@ -14,7 +14,7 @@ export const SERVICE_CONFIG: Record<ServiceName, ServiceConfig> = {
   [ServiceName.AUTH_SERVICE]: {
     name: 'auth-service',
     baseUrl: process.env.AUTH_SERVICE_URL || 'http://localhost:3001',
-    timeout: 5000,
+    timeout: 10000,
     retryAttempts: 3,
     retryDelay: 1000,
   },

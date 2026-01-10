@@ -125,6 +125,7 @@ export class ProxyService {
           (): Promise<AxiosResponse<T>> =>
             this.httpClient.request<T>(requestConfig),
         );
+        this.logger.log(`Response: ${JSON.stringify(response.data)}`);
 
         const setCookieHeaders = response.headers['set-cookie'];
 

@@ -25,6 +25,9 @@ importers:
 
   apps/api-gateway:
     dependencies:
+      "@my-website/constants":
+        specifier: workspace:*
+        version: link:../../packages/constants
       "@my-website/types":
         specifier: workspace:*
         version: link:../../packages/types
@@ -161,6 +164,9 @@ importers:
 
   apps/auth-service:
     dependencies:
+      "@my-website/constants":
+        specifier: workspace:*
+        version: link:../../packages/constants
       "@nestjs/cache-manager":
         specifier: ^3.1.0
         version: 3.1.0(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.11)(cache-manager@7.2.7)(keyv@5.5.5)(rxjs@7.8.2)
@@ -282,6 +288,12 @@ importers:
       typescript-eslint:
         specifier: ^8.20.0
         version: 8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.2)
+
+  packages/constants:
+    devDependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
   packages/types:
     dependencies:
