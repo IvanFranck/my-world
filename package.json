@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
+    "dev:api-gateway": "turbo dev --filter @my-website/api-gateway",
     "build": "turbo build",
     "lint": "turbo lint",
     "test": "turbo test",
