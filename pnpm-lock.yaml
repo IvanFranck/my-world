@@ -291,6 +291,9 @@ importers:
 
   apps/content-service:
     dependencies:
+      "@my-website/constants":
+        specifier: workspace:*
+        version: link:../../packages/constants
       "@my-website/types":
         specifier: workspace:*
         version: link:../../packages/types

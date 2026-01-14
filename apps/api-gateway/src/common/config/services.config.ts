@@ -8,12 +8,20 @@ export interface ServiceConfig {
 
 export enum ServiceName {
   AUTH_SERVICE = 'auth-service',
+  CONTENT_SERVICE = 'content-service',
 }
 
 export const SERVICE_CONFIG: Record<ServiceName, ServiceConfig> = {
   [ServiceName.AUTH_SERVICE]: {
-    name: 'auth-service',
+    name: ServiceName.AUTH_SERVICE,
     baseUrl: process.env.AUTH_SERVICE_URL || 'http://localhost:3001',
+    timeout: 10000,
+    retryAttempts: 3,
+    retryDelay: 1000,
+  },
+  [ServiceName.CONTENT_SERVICE]: {
+    name: ServiceName.AUTH_SERVICE,
+    baseUrl: process.env.CONTENT_SERVICE_URL || 'http://localhost:3002',
     timeout: 10000,
     retryAttempts: 3,
     retryDelay: 1000,

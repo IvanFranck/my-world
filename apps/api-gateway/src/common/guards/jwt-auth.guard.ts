@@ -13,7 +13,11 @@ import { Reflector } from '@nestjs/core';
 import { AUTH_ROUTES_PATHS, IS_PUBLIC_KEY } from 'src/libs/constants';
 import type { Request } from 'express';
 import { ProxyService } from 'src/proxy/proxy.service';
-import { BETTER_AUTH_SESSION_TOKEN_NAME } from '@my-website/constants';
+import {
+  BETTER_AUTH_SESSION_TOKEN_NAME,
+  USER_EMAIL_HEADER,
+  USER_ID_HEADER,
+} from '@my-website/constants';
 import { ServiceName } from '../config/services.config';
 import { GetSessionResponse } from '@my-website/types';
 
@@ -58,7 +62,8 @@ export class JwtAuthGuard implements CanActivate {
       return this.validateSessionCookie(sessionCookie, request);
     }
 
-    return true;
+    // No authentication found
+    throw new UnauthorizedException('Authentication required');
   }
 
   /**
@@ -79,8 +84,8 @@ export class JwtAuthGuard implements CanActivate {
       };
 
       // Attach headers for backend services
-      request.headers['x-user-id'] = payload.sub;
-      request.headers['x-user-email'] = payload.email;
+      request.headers[USER_ID_HEADER] = payload.sub;
+      request.headers[USER_EMAIL_HEADER] = payload.email;
 
       this.logger.log(`User ${payload.sub} authenticated`);
 
@@ -130,8 +135,8 @@ export class JwtAuthGuard implements CanActivate {
       };
 
       // Headers pour les services backend
-      request.headers['x-user-id'] = sessionData.user.id;
-      request.headers['x-user-email'] = sessionData.user.email;
+      request.headers[USER_ID_HEADER] = sessionData.user.id;
+      request.headers[USER_EMAIL_HEADER] = sessionData.user.email;
 
       this.logger.debug(
         `User ${sessionData.user.id} authenticated via session cookie`,

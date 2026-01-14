@@ -1,3 +1,4 @@
+import { USER_ID_HEADER } from '@my-website/constants';
 import {
   Body,
   Controller,
@@ -10,7 +11,9 @@ import {
   Patch,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
+import { type Request } from 'express';
 import { ArticleFiltersDto } from 'src/articles/application/dtos/article-filters.dto';
 import { CreateArticleDto } from 'src/articles/application/dtos/create-article.dto';
 import { UpdateArticleDto } from 'src/articles/application/dtos/update-article.dto';
@@ -24,8 +27,11 @@ export class ArticlesController {
   @HttpCode(HttpStatus.CREATED)
   async create(
     @Body() dto: CreateArticleDto,
-    @Headers('x-user-id') userId: string,
+    @Req() req: Request,
+    @Headers(USER_ID_HEADER as string) userId: string,
   ) {
+    console.log('🚀 ~ ArticlesController ~ create ~ req:', req.headers);
+    console.log('🚀 ~ ArticlesController ~ create ~ userId:', userId);
     return await this.articleService.create(dto, userId);
   }
 
@@ -55,6 +61,7 @@ export class ArticlesController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: string) {
     return await this.articleService.delete(id);
   }
