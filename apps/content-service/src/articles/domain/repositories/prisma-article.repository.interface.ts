@@ -16,7 +16,7 @@ export interface PaginationParams {
   sortOrder?: 'asc' | 'desc';
 }
 
-export interface PaginatiedResult<T> {
+export interface PaginatedResult<T> {
   data: T[];
   meta: {
     total: number;
@@ -59,14 +59,14 @@ export interface IArticleRepository {
   findAll(
     filters: ArticleFilters,
     pagination: PaginationParams,
-  ): Promise<PaginatiedResult<ArticleEntity>>;
+  ): Promise<PaginatedResult<ArticleEntity>>;
 
   /**
    * Update an article
    */
   update(
     id: string,
-    article: Partial<ArticleEntity>,
+    updates: Partial<Omit<ArticleEntity, 'createdAt' | 'updatedAt'>>,
     categoryIds?: string[],
     tagIds?: string[],
   ): Promise<ArticleEntity>;

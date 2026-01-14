@@ -12,15 +12,15 @@ export class ArticleEntity {
     public slug: string,
     public status: ArticleStatus,
     public authorId: string,
-    public excerpt?: string,
-    public coverImage?: string,
-    public metaTitle?: string,
-    public metaDescription?: string,
-    public publishedAt?: Date,
-    public scheduledAt?: Date,
+    public excerpt: string | null,
+    public coverImage: string | null,
+    public metaTitle: string | null,
+    public metaDescription: string | null,
+    public publishedAt: Date | null,
+    public scheduledAt: Date | null,
     public views: number = 0,
-    public readonly createdAt?: Date,
-    public readonly updatedAt?: Date,
+    public readonly createdAt: Date | null,
+    public readonly updatedAt: Date | null,
   ) {}
 
   /**
@@ -33,7 +33,7 @@ export class ArticleEntity {
 
     this.status = ArticleStatus.PUBLISHED;
     this.publishedAt = new Date();
-    this.scheduledAt = undefined;
+    this.scheduledAt = null;
   }
 
   /**
@@ -46,7 +46,7 @@ export class ArticleEntity {
 
     this.status = ArticleStatus.SCHEDULED;
     this.scheduledAt = date;
-    this.publishedAt = undefined;
+    this.publishedAt = null;
   }
 
   /**
@@ -65,8 +65,8 @@ export class ArticleEntity {
    */
   unpublish(): void {
     this.status = ArticleStatus.DRAFT;
-    this.publishedAt = undefined;
-    this.scheduledAt = undefined;
+    this.publishedAt = null;
+    this.scheduledAt = null;
   }
 
   /**
