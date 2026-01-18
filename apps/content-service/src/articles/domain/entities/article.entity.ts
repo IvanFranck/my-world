@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { ArticleStatus } from 'generated/prisma/enums';
 
 /**
@@ -28,7 +29,7 @@ export class ArticleEntity {
    */
   publish(): void {
     if (this.status === ArticleStatus.PUBLISHED) {
-      throw new Error('Article already published');
+      throw new BadRequestException('Article already published');
     }
 
     this.status = ArticleStatus.PUBLISHED;
@@ -41,7 +42,7 @@ export class ArticleEntity {
    */
   schedule(date: Date): void {
     if (date <= new Date()) {
-      throw new Error('Scheduled date must be in the future');
+      throw new BadRequestException('Scheduled date must be in the future');
     }
 
     this.status = ArticleStatus.SCHEDULED;
@@ -54,7 +55,7 @@ export class ArticleEntity {
    */
   archive(): void {
     if (this.status !== ArticleStatus.PUBLISHED) {
-      throw new Error('Only published articles can be archived');
+      throw new BadRequestException('Only published articles can be archived');
     }
 
     this.status = ArticleStatus.ARCHIVED;
