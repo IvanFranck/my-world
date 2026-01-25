@@ -1,6 +1,7 @@
+import { UpdateCategoryRequest } from '@my-website/types';
 import { IsString, IsOptional, MaxLength, Matches } from 'class-validator';
 
-export class UpdateCategoryDto {
+export class UpdateCategoryDto implements UpdateCategoryRequest {
   @IsString()
   @IsOptional()
   @MaxLength(50, { message: 'Le nom ne peut pas dépasser 50 caractères' })

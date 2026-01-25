@@ -1,3 +1,4 @@
+import { CreateCategoryRequest } from '@my-website/types';
 import {
   IsString,
   IsOptional,
@@ -6,7 +7,7 @@ import {
   Matches,
 } from 'class-validator';
 
-export class CreateCategoryDto {
+export class CreateCategoryDto implements CreateCategoryRequest {
   @IsString()
   @MinLength(2, { message: 'Le nom doit contenir au moins 2 caractères' })
   @MaxLength(50, { message: 'Le nom ne peut pas dépasser 50 caractères' })
