@@ -4,6 +4,7 @@ import { DatabaseModule } from './database/database.module';
 import Joi from 'joi';
 import { ArticlesModules } from './articles/articles.module';
 import { CategoriesModule } from './categories/categories.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CategoriesModule } from './categories/categories.module';
     DatabaseModule,
     ArticlesModules,
     CategoriesModule,
+    TagsModule,
   ],
   controllers: [],
   providers: [],
