@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { ArticleStatus } from 'generated/prisma/enums';
 
 /**
@@ -12,15 +13,15 @@ export class ArticleEntity {
     public slug: string,
     public status: ArticleStatus,
     public authorId: string,
-    public excerpt?: string,
-    public coverImage?: string,
-    public metaTitle?: string,
-    public metaDescription?: string,
-    public publishedAt?: Date,
-    public scheduledAt?: Date,
+    public excerpt: string | null,
+    public coverImage: string | null,
+    public metaTitle: string | null,
+    public metaDescription: string | null,
+    public publishedAt: Date | null,
+    public scheduledAt: Date | null,
     public views: number = 0,
-    public readonly createdAt?: Date,
-    public readonly updatedAt?: Date,
+    public readonly createdAt: Date | null,
+    public readonly updatedAt: Date | null,
   ) {}
 
   /**
@@ -28,12 +29,12 @@ export class ArticleEntity {
    */
   publish(): void {
     if (this.status === ArticleStatus.PUBLISHED) {
-      throw new Error('Article already published');
+      throw new BadRequestException('Article already published');
     }
 
     this.status = ArticleStatus.PUBLISHED;
     this.publishedAt = new Date();
-    this.scheduledAt = undefined;
+    this.scheduledAt = null;
   }
 
   /**
@@ -41,12 +42,12 @@ export class ArticleEntity {
    */
   schedule(date: Date): void {
     if (date <= new Date()) {
-      throw new Error('Scheduled date must be in the future');
+      throw new BadRequestException('Scheduled date must be in the future');
     }
 
     this.status = ArticleStatus.SCHEDULED;
     this.scheduledAt = date;
-    this.publishedAt = undefined;
+    this.publishedAt = null;
   }
 
   /**
@@ -54,7 +55,7 @@ export class ArticleEntity {
    */
   archive(): void {
     if (this.status !== ArticleStatus.PUBLISHED) {
-      throw new Error('Only published articles can be archived');
+      throw new BadRequestException('Only published articles can be archived');
     }
 
     this.status = ArticleStatus.ARCHIVED;
@@ -65,8 +66,8 @@ export class ArticleEntity {
    */
   unpublish(): void {
     this.status = ArticleStatus.DRAFT;
-    this.publishedAt = undefined;
-    this.scheduledAt = undefined;
+    this.publishedAt = null;
+    this.scheduledAt = null;
   }
 
   /**

@@ -1,3 +1,5 @@
+export * from "./headers";
+
 // session
 
 export const BETTER_AUTH_SESSION_TOKEN_NAME =

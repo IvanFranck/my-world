@@ -1,0 +1,76 @@
+{
+  "example_complete": {
+    "title": "Introduction à NestJS et l'Architecture Hexagonale",
+    "content": "NestJS est un framework Node.js progressif qui utilise TypeScript et s'inspire d'Angular. Il offre une architecture modulaire et une excellente intégration avec de nombreux outils. L'architecture hexagonale, également connue sous le nom de Ports and Adapters, permet de séparer la logique métier de l'infrastructure, rendant le code plus testable et maintenable. Dans cet article, nous explorerons comment combiner ces deux approches pour créer des applications robustes et évolutives.",
+    "excerpt": "Découvrez comment utiliser NestJS avec l'architecture hexagonale pour créer des applications Node.js robustes et maintenables.",
+    "slug": "introduction-nestjs-architecture-hexagonale",
+    "coverImage": "https://example.com/images/nestjs-hexagonal-architecture.jpg",
+    "metaTitle": "NestJS et Architecture Hexagonale - Guide Complet",
+    "metaDescription": "Apprenez à combiner NestJS et l'architecture hexagonale pour créer des applications Node.js robustes, testables et maintenables.",
+    "status": "DRAFT",
+    "categoryIds": [
+      "550e8400-e29b-41d4-a716-446655440000",
+      "550e8400-e29b-41d4-a716-446655440001"
+    ],
+    "tagIds": [
+      "660e8400-e29b-41d4-a716-446655440000",
+      "660e8400-e29b-41d4-a716-446655440001",
+      "660e8400-e29b-41d4-a716-446655440002"
+    ],
+    "scheduledAt": "2024-12-25T10:00:00.000Z"
+  },
+  "example_minimal": {
+    "title": "Mon Premier Article de Blog",
+    "content": "Ceci est le contenu de mon premier article. Il doit contenir au moins 100 caractères pour être valide selon les règles de validation définies dans le DTO. Voici donc un texte suffisamment long pour satisfaire cette contrainte.",
+    "status": "DRAFT",
+    "categoryIds": ["550e8400-e29b-41d4-a716-446655440000"],
+    "tagIds": ["660e8400-e29b-41d4-a716-446655440000"]
+  },
+  "example_published": {
+    "title": "Guide Complet sur TypeScript et NestJS",
+    "content": "TypeScript est un sur-ensemble de JavaScript qui ajoute le typage statique. NestJS, construit sur TypeScript, offre une excellente expérience de développement avec son système de décorateurs et son architecture modulaire. Dans ce guide complet, nous couvrirons les concepts fondamentaux, les meilleures pratiques, et comment structurer une application NestJS de manière professionnelle. Nous aborderons également les patterns de design, la gestion des erreurs, et l'intégration avec des bases de données.",
+    "excerpt": "Un guide complet pour maîtriser TypeScript et NestJS, de la configuration initiale aux patterns avancés.",
+    "slug": "guide-typescript-nestjs",
+    "coverImage": "https://example.com/images/typescript-nestjs.jpg",
+    "metaTitle": "TypeScript et NestJS - Guide Complet 2024",
+    "metaDescription": "Maîtrisez TypeScript et NestJS avec ce guide complet couvrant les fondamentaux, les meilleures pratiques et les patterns avancés.",
+    "status": "PUBLISHED",
+    "categoryIds": ["550e8400-e29b-41d4-a716-446655440000"],
+    "tagIds": [
+      "660e8400-e29b-41d4-a716-446655440000",
+      "660e8400-e29b-41d4-a716-446655440001"
+    ]
+  },
+  "example_scheduled": {
+    "title": "Les Tendances du Développement Web en 2025",
+    "content": "Le développement web évolue constamment, avec de nouvelles technologies et frameworks qui émergent chaque année. En 2025, nous observons plusieurs tendances majeures : l'adoption croissante des frameworks full-stack, l'importance de la performance et du SEO, l'intégration de l'IA dans le développement, et la montée en puissance des architectures serverless. Cet article explore ces tendances en détail et offre des insights sur comment les intégrer dans vos projets.",
+    "excerpt": "Découvrez les tendances majeures du développement web en 2025 et comment elles impactent votre façon de coder.",
+    "slug": "tendances-developpement-web-2025",
+    "status": "SCHEDULED",
+    "categoryIds": ["550e8400-e29b-41d4-a716-446655440000"],
+    "tagIds": ["660e8400-e29b-41d4-a716-446655440000"],
+    "scheduledAt": "2025-01-01T08:00:00.000Z"
+  },
+  "notes": {
+    "required_fields": [
+      "title (min 10, max 200 caractères)",
+      "content (min 100 caractères)",
+      "status (DRAFT, PUBLISHED, SCHEDULED, ARCHIVED)",
+      "categoryIds (array d'UUIDs v4)",
+      "tagIds (array d'UUIDs v4)"
+    ],
+    "optional_fields": [
+      "excerpt (max 500 caractères)",
+      "slug (max 250 caractères, généré automatiquement si absent)",
+      "coverImage (URL valide)",
+      "metaTitle (max 70 caractères)",
+      "metaDescription (max 160 caractères)",
+      "scheduledAt (format ISO 8601)"
+    ],
+    "headers_required": {
+      "x-user-id": "UUID de l'utilisateur auteur de l'article"
+    },
+    "endpoint": "POST /articles",
+    "status_values": ["DRAFT", "PUBLISHED", "SCHEDULED", "ARCHIVED"]
+  }
+}

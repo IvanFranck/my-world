@@ -19,6 +19,8 @@ import { LoggingInterceptor } from './common/interceptor/logging.interceptor';
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
         JWT_SECRET: Joi.string().required(),
+        AUTH_SERVICE_URL: Joi.string().required(),
+        CONTENT_SERVICE_URL: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({
