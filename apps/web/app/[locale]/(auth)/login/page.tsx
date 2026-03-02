@@ -1,11 +1,12 @@
-"use client";
-
 import React from "react";
 import { Hexagon, Mail, Lock, ArrowLeft, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/core/providers/theme-provider/ThemeContext";
 
-const Login: React.FC = () => {
-  const { darkMode, toggleDarkMode } = useTheme();
+interface LoginProps {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ darkMode, toggleDarkMode }) => {
   return (
     <div className="min-h-screen w-full flex bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
       {/* Left Panel - Illustration */}
