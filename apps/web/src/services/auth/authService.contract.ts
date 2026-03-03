@@ -3,7 +3,7 @@ import {
   SignOutResponse,
   SignUpEmailRequest,
 } from "@my-website/types";
-import { AuthUserEntity } from "@/types/auth/authUser.entity";
+import { AuthUserEntity } from "@/src/types/auth/authUser.entity";
 
 export abstract class IAuthService {
   abstract login(payload: SignInEmailRequest): Promise<AuthUserEntity>;

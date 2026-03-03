@@ -1,4 +1,4 @@
-import { Entity } from "@/core/types/entity";
+import { Entity } from "@/src/core/types/entity";
 
 export interface AuthUserEntity extends Entity {
   name: string;

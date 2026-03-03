@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/app/lib/constants";
+import { API_BASE_URL } from "@/src/app/lib/constants";
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -6,7 +6,7 @@ import axios, {
 } from "axios";
 import { TokenManager } from "./tokenManager";
 import { RefreshTokenResponse } from "@my-website/types";
-import { authApiRoutes } from "@/services/auth/authApiRoutes";
+import { authApiRoutes } from "@/src/services/auth/authApiRoutes";
 
 interface QueueItem {
   resolve: (value: string) => void;

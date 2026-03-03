@@ -1,6 +1,6 @@
-import { HttpClient } from "@/core/http/httpClient";
+import { HttpClient } from "@/src/core/http/httpClient";
 import { IAuthService } from "./authService.contract";
-import { API_BASE_URL } from "@/app/lib/constants";
+import { API_BASE_URL } from "@/src/app/lib/constants";
 import { authApiRoutes } from "./authApiRoutes";
 import {
   GetSessionResponse,
@@ -10,8 +10,8 @@ import {
   SignUpEmailRequest,
   SignUpEmailResponse,
 } from "@my-website/types";
-import { TokenManager } from "@/core/http/tokenManager";
-import { AuthUserEntity } from "@/types/auth/authUser.entity";
+import { TokenManager } from "@/src/core/http/tokenManager";
+import { AuthUserEntity } from "@/src/types/auth/authUser.entity";
 import { AuthMapper } from "./mappers/authMapper";
 
 export class AuthService extends HttpClient implements IAuthService {

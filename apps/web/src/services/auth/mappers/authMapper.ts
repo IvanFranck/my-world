@@ -1,4 +1,4 @@
-import { AuthUserEntity } from "@/types/auth/authUser.entity";
+import { AuthUserEntity } from "@/src/types/auth/authUser.entity";
 import {
   GetSessionResponse,
   SignInEmailResponse,
