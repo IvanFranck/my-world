@@ -23,7 +23,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      '*', // TODO: change it for prod
+      'http://localhost:3010', // TODO: change it for prod
     ].filter(Boolean),
     credentials: true, // for cookies
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
@@ -32,6 +32,7 @@ async function bootstrap() {
       'Authorization',
       'X-Requested-With',
       'X-Correlation-Id',
+      'Access-Control-Allow-Origin',
       'Origin',
     ],
     exposedHeaders: ['Set-Cookie', 'X-Correlation-Id'],

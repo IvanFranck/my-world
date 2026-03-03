@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/src/core/providers/theme-provider/ThemeProvider
 import { ReactQueryClientProvider } from "@/src/core/providers/query-client-provider/QueryClientProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getMessages } from "next-intl/server";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,12 @@ export default async function RootLayout({
         <ThemeProvider>
           <ReactQueryClientProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 3000,
+                }}
+              />
               {children}
             </NextIntlClientProvider>
           </ReactQueryClientProvider>

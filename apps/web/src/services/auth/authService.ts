@@ -14,7 +14,7 @@ import { TokenManager } from "@/src/core/http/tokenManager";
 import { AuthUserEntity } from "@/src/types/auth/authUser.entity";
 import { AuthMapper } from "./mappers/authMapper";
 
-export class AuthService extends HttpClient implements IAuthService {
+class AuthService extends HttpClient implements IAuthService {
   constructor(baseUrl?: string) {
     super(baseUrl || API_BASE_URL);
   }
@@ -47,3 +47,5 @@ export class AuthService extends HttpClient implements IAuthService {
     return AuthMapper.mapAuthUserFromGetSessionResponse(response);
   }
 }
+
+export const authService = new AuthService();

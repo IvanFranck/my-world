@@ -1,13 +1,19 @@
+"use client";
+
 import React from "react";
-import { Hexagon, Mail, Lock, ArrowLeft, Sun, Moon } from "lucide-react";
+import { Mail, Lock, Loader2 } from "lucide-react";
 import LocaleLink from "@/src/components/ui/LocaleLink";
+import { useLogin } from "@/src/hooks/layout/auth/useLogin";
 
-interface LoginProps {
-  darkMode: boolean;
-  toggleDarkMode: () => void;
-}
+interface LoginProps {}
 
-const Login: React.FC<LoginProps> = ({ darkMode, toggleDarkMode }) => {
+const Login: React.FC<LoginProps> = () => {
+  const { form, onSubmit, isLoading } = useLogin();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
   return (
     <div className="w-full max-w-md space-y-8">
       <div className="text-center">
@@ -17,7 +23,7 @@ const Login: React.FC<LoginProps> = ({ darkMode, toggleDarkMode }) => {
         </p>
       </div>
 
-      <form className="mt-8 space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
         <div className="space-y-4">
           <div>
             <label
@@ -32,12 +38,14 @@ const Login: React.FC<LoginProps> = ({ darkMode, toggleDarkMode }) => {
               </div>
               <input
                 id="email"
-                name="email"
                 type="email"
-                required
+                {...register("email")}
                 className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-nest-red focus:border-transparent transition-all"
                 placeholder="votre@email.com"
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
             </div>
           </div>
 
@@ -62,12 +70,16 @@ const Login: React.FC<LoginProps> = ({ darkMode, toggleDarkMode }) => {
               </div>
               <input
                 id="password"
-                name="password"
                 type="password"
-                required
+                {...register("password")}
                 className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-nest-red focus:border-transparent transition-all"
                 placeholder="••••••••"
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -89,9 +101,14 @@ const Login: React.FC<LoginProps> = ({ darkMode, toggleDarkMode }) => {
 
         <button
           type="submit"
+          disabled={isLoading}
           className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-nest-red hover:bg-nest-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nest-red transition-all transform hover:scale-[1.01]"
         >
-          Se connecter
+          {isLoading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            "Se connecter"
+          )}
         </button>
 
         <div className="relative my-6">

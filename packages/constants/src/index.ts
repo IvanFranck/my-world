@@ -1,4 +1,5 @@
 export * from "./headers";
+export * from "./regex";
 
 // session
 
