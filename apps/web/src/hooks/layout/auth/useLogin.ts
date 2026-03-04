@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 
 export const useLogin = () => {
   const t = useTranslations("auth");
@@ -22,7 +22,7 @@ export const useLogin = () => {
   });
 
   const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema(t)),
+    resolver: standardSchemaResolver(loginSchema(t)),
   });
 
   const onSubmit = (data: LoginFormData) => {

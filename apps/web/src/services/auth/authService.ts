@@ -1,6 +1,6 @@
 import { HttpClient } from "@/src/core/http/httpClient";
 import { IAuthService } from "./authService.contract";
-import { API_BASE_URL } from "@/src/app/lib/constants";
+import { API_BASE_URL } from "@/src/core/lib/constants";
 import { authApiRoutes } from "./authApiRoutes";
 import {
   GetSessionResponse,
