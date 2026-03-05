@@ -10,4 +10,5 @@ export abstract class IAuthService {
   abstract register(payload: SignUpEmailRequest): Promise<AuthUserEntity>;
   abstract logout(): Promise<SignOutResponse>;
   abstract me(): Promise<AuthUserEntity | null>;
+  abstract refreshToken(): Promise<AuthUserEntity>;
 }

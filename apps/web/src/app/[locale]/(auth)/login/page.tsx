@@ -49,21 +49,6 @@ const Login: React.FC<LoginProps> = () => {
             />
           </div>
 
-          <div className="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              className="h-4 w-4 text-nest-red focus:ring-nest-red border-slate-300 rounded"
-            />
-            <label
-              htmlFor="remember-me"
-              className="ml-2 block text-sm text-slate-600 dark:text-slate-400"
-            >
-              Se souvenir de moi
-            </label>
-          </div>
-
           <Button
             type="submit"
             disabled={isLoading}
@@ -124,7 +109,7 @@ const Login: React.FC<LoginProps> = () => {
             </button>
           </div>
 
-          <p className="text-center text-sm text-slate-600 dark:text-slate-400">
+          {/* <p className="text-center text-sm text-slate-600 dark:text-slate-400">
             Pas encore de compte ?{" "}
             <LocaleLink
               href="/register"
@@ -132,7 +117,7 @@ const Login: React.FC<LoginProps> = () => {
             >
               S'inscrire gratuitement
             </LocaleLink>
-          </p>
+          </p> */}
         </form>
       </Form>
     </div>

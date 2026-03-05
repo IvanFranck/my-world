@@ -46,6 +46,16 @@ class AuthService extends HttpClient implements IAuthService {
     const response = await this.get<GetSessionResponse>(authApiRoutes.me);
     return AuthMapper.mapAuthUserFromGetSessionResponse(response);
   }
+
+  async refreshToken(): Promise<AuthUserEntity> {
+    const response = await this.post<SignInEmailResponse>(
+      authApiRoutes.login,
+      {},
+    );
+
+    TokenManager.setToken(response.token);
+    return AuthMapper.mapAuthUserFromSignInEmailResponse(response);
+  }
 }
 
 export const authService = new AuthService();
