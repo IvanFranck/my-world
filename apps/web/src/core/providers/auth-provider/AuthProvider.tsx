@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // No token and not authenticated - user is simply not logged in
       if (!isAuthenticated || !user) {
         setAuthReady(true);
-        router.push(`/${locale}/login`);
+        // router.push(`/${locale}/login`);
         return;
       }
 
