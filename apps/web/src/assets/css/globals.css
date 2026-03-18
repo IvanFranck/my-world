@@ -22,6 +22,19 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+  --color-primary: var(--color-amaranth-500);
+  --color-primary-50: var(--color-amaranth-50);
+  --color-primary-100: var(--color-amaranth-100);
+  --color-primary-200: var(--color-amaranth-200);
+  --color-primary-300: var(--color-amaranth-300);
+  --color-primary-400: var(--color-amaranth-400);
+  --color-primary-500: var(--color-amaranth-500);
+  --color-primary-600: var(--color-amaranth-600);
+  --color-primary-700: var(--color-amaranth-700);
+  --color-primary-800: var(--color-amaranth-800);
+  --color-primary-900: var(--color-amaranth-900);
+  --color-primary-950: var(--color-amaranth-950);
+
   --color-nest-red: var(--color-amaranth-500);
   --color-nest-50: var(--color-amaranth-50);
   --color-nest-100: var(--color-amaranth-100);
@@ -57,6 +70,9 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* heigth */
+  --spacing-primary-button: var(--primary-button-heigth);
 }
 
 :root {
@@ -78,8 +94,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(58.43% 0.219 16.35);
+  --primary-foreground: oklch(58.43% 0.219 16.35);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -103,6 +119,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* heigth */
+  --primary-button-heigth: 48px;
 }
 
 .dark {
@@ -146,4 +165,30 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .heading-1 {
+    @apply text-4xl font-bold tracking-tight md:text-4xl lg:text-[42px];
+  }
+
+  .heading-2 {
+    @apply text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl;
+  }
+
+  .heading-3 {
+    @apply text-lg font-semibold tracking-tight md:text-xl lg:text-[29px];
+  }
+
+  .heading-4 {
+    @apply text-lg font-semibold tracking-tight md:text-xl lg:text-[23px];
+  }
+
+  .heading-5 {
+    @apply text-sm font-semibold tracking-tight md:text-base lg:text-[17px];
+  }
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
 }
