@@ -1,6 +1,8 @@
 "use client";
-import { useEditor, EditorContent } from "@tiptap/react";
+import type { Editor } from "@tiptap/core";
+import { useEditor, EditorContent, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { TextStyleKit } from "@tiptap/extension-text-style";
 import {
   Bold,
   Italic,
@@ -13,13 +15,19 @@ import {
   Quote,
   Undo,
   Redo,
+  Pilcrow,
 } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "../button";
+import { menuBarStateSelector } from "./menuBarState";
 
-const MenuBar = ({ editor }: { editor: any }) => {
+const MenuBar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) {
     return null;
   }
+  const editorState = useEditorState({
+    editor,
+    selector: menuBarStateSelector,
+  });
 
   return (
     <div className="flex flex-wrap gap-2 border-b p-2 bg-muted/20">
@@ -27,8 +35,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleBold().run()}
-        disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={editor.isActive("bold") ? "bg-muted" : ""}
+        disabled={!editorState.canBold}
+        className={editorState.isBold ? "bg-primary-100" : ""}
       >
         <Bold className="h-4 w-4" />
       </Button>
@@ -36,8 +44,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={editor.isActive("italic") ? "bg-muted" : ""}
+        disabled={!editorState.canItalic}
+        className={editorState.isItalic ? "bg-primary-100" : ""}
       >
         <Italic className="h-4 w-4" />
       </Button>
@@ -45,8 +53,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleStrike().run()}
-        disabled={!editor.can().chain().focus().toggleStrike().run()}
-        className={editor.isActive("strike") ? "bg-muted" : ""}
+        disabled={!editorState.canStrike}
+        className={editorState.isStrike ? "bg-primary-100" : ""}
       >
         <Strikethrough className="h-4 w-4" />
       </Button>
@@ -54,8 +62,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleCode().run()}
-        disabled={!editor.can().chain().focus().toggleCode().run()}
-        className={editor.isActive("code") ? "bg-muted" : ""}
+        disabled={!editorState.canCode}
+        className={editorState.isCode ? "bg-primary-100" : ""}
       >
         <Code className="h-4 w-4" />
       </Button>
@@ -63,8 +71,16 @@ const MenuBar = ({ editor }: { editor: any }) => {
       <Button
         variant="ghost"
         size="sm"
+        onClick={() => editor.chain().focus().setParagraph().run()}
+        className={editorState.isParagraph ? "is-active" : ""}
+      >
+        <Pilcrow className="size-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive("heading", { level: 1 }) ? "bg-muted" : ""}
+        className={editorState.isHeading1 ? "bg-primary-100" : ""}
       >
         <Heading1 className="h-4 w-4" />
       </Button>
@@ -72,7 +88,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive("heading", { level: 2 }) ? "bg-muted" : ""}
+        className={editorState.isHeading2 ? "bg-primary-100" : ""}
       >
         <Heading2 className="h-4 w-4" />
       </Button>
@@ -81,7 +97,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "bg-muted" : ""}
+        className={editorState.isBulletList ? "bg-primary-100" : ""}
       >
         <List className="h-4 w-4" />
       </Button>
@@ -89,7 +105,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive("orderedList") ? "bg-muted" : ""}
+        className={editorState.isOrderedList ? "bg-primary-100" : ""}
       >
         <ListOrdered className="h-4 w-4" />
       </Button>
@@ -98,7 +114,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive("blockquote") ? "bg-muted" : ""}
+        className={editorState.isBlockquote ? "bg-primary-100" : ""}
       >
         <Quote className="h-4 w-4" />
       </Button>
@@ -107,7 +123,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().undo().run()}
-        disabled={!editor.can().chain().focus().undo().run()}
+        disabled={!editorState.canUndo}
       >
         <Undo className="h-4 w-4" />
       </Button>
@@ -115,7 +131,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="ghost"
         size="sm"
         onClick={() => editor.chain().focus().redo().run()}
-        disabled={!editor.can().chain().focus().redo().run()}
+        disabled={!editorState.canRedo}
       >
         <Redo className="h-4 w-4" />
       </Button>
@@ -132,7 +148,7 @@ const TiptapEditor = ({
 }) => {
   const editor = useEditor({
     immediatelyRender: false,
-    extensions: [StarterKit],
+    extensions: [StarterKit, TextStyleKit],
     content: content,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());

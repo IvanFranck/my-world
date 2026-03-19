@@ -442,6 +442,12 @@ importers:
       "@tanstack/react-query-devtools":
         specifier: ^5.91.3
         version: 5.91.3(@tanstack/react-query@5.90.21(react@19.2.3))(react@19.2.3)
+      "@tiptap/core":
+        specifier: ^3.20.4
+        version: 3.20.4(@tiptap/pm@3.20.4)
+      "@tiptap/extension-text-style":
+        specifier: ^3.20.4
+        version: 3.20.4(@tiptap/core@3.20.4(@tiptap/pm@3.20.4))
       "@tiptap/react":
         specifier: ^3.20.4
         version: 3.20.4(@floating-ui/dom@1.7.6)(@tiptap/core@3.20.4(@tiptap/pm@3.20.4))(@tiptap/pm@3.20.4)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -4822,6 +4828,14 @@ packages:
     resolution:
       {
         integrity: sha512-It1Px9uDGTsVqyyg6cy7DigLoenljpQwqdI0jssM7QclZrHnsrye9fZxBBiiuCzzV1305MxKgHvratkHwqmVNA==,
+      }
+    peerDependencies:
+      "@tiptap/core": ^3.20.4
+
+  "@tiptap/extension-text-style@3.20.4":
+    resolution:
+      {
+        integrity: sha512-PvW0Ja7ahWpo4bRuR8YCCVv4PH8lXjzhzlBAa4bMbsumOg+GbhX8Su7fwqd+IIPrHqfPXz9HTBMApSfzP6/08A==,
       }
     peerDependencies:
       "@tiptap/core": ^3.20.4
@@ -15764,6 +15778,10 @@ snapshots:
       "@tiptap/core": 3.20.4(@tiptap/pm@3.20.4)
 
   "@tiptap/extension-strike@3.20.4(@tiptap/core@3.20.4(@tiptap/pm@3.20.4))":
+    dependencies:
+      "@tiptap/core": 3.20.4(@tiptap/pm@3.20.4)
+
+  "@tiptap/extension-text-style@3.20.4(@tiptap/core@3.20.4(@tiptap/pm@3.20.4))":
     dependencies:
       "@tiptap/core": 3.20.4(@tiptap/pm@3.20.4)
 

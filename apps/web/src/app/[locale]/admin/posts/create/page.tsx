@@ -4,7 +4,7 @@ import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
 import { Input } from "@/src/components/ui/input";
 import LocaleLink from "@/src/components/ui/LocaleLink";
-import TiptapEditor from "@/src/components/ui/TiptapEditor";
+import TiptapEditor from "@/src/components/ui/tiptap-editor/TiptapEditor";
 import { AuthProvider } from "@/src/core/providers/auth-provider/AuthProvider";
 import { ArrowLeft, ChevronLeft, Eye, Plus, Save } from "lucide-react";
 import { useState } from "react";
