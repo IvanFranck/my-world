@@ -1,0 +1,42 @@
+services:
+  users-db:
+    image: postgres:16-alpine
+    ports:
+      - "5434:5432"
+    env_file:
+      - "apps/auth-service/.env"
+    volumes:
+      - users-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg-isready -U postgres"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    networks:
+      - my-website-network
+
+  content-db:
+    image: postgres:16-alpine
+    ports:
+      - "5433:5432"
+    env_file:
+      - "apps/content-service/.env"
+    volumes:
+      - content-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg-isready -U postgres"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    networks:
+      - my-website-network
+
+volumes:
+  content-db-data:
+  users-db-data:
+
+networks:
+  my-website-network:
+    driver: bridge
