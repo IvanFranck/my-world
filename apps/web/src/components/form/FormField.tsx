@@ -36,7 +36,7 @@ interface FormFieldProps<
 }
 
 export const inputVariants = cva(
-  "block w-full pl-10 pr-3 py-5.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-nest-red focus:border-transparent transition-all",
+  "block w-full pr-3 py-5.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-nest-red focus:border-transparent transition-all",
   {
     variants: {
       variant: {

@@ -1,3 +1,22 @@
 {
-  "form": {}
+  "form": {
+    "title": {
+      "min": "Title must be at least 8 characters long."
+    },
+    "content": {
+      "min": "Content must not be empty."
+    },
+    "categories": {
+      "min": "Please select at least one category."
+    },
+    "tags": {
+      "min": "Please select at least one tag."
+    },
+    "status": "Please select a valid status.",
+    "coverImage": "Cover image must be a valid URL.",
+    "scheduledAt": "Scheduled date must be a valid date/time.",
+    "id": {
+      "invalid": "Invalid post ID."
+    }
+  }
 }

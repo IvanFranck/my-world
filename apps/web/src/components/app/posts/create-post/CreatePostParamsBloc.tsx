@@ -1,3 +1,4 @@
+import { FormInput } from "@/src/components/form/ui/FormInput";
 import {
   FormSelect,
   FormSelectOption,
@@ -70,8 +71,15 @@ export const CreatePostParamsBloc = () => {
           label="Categories"
           options={categoriesOptions}
         />
+        <FormInput
+          control={control}
+          name="slug"
+          label="Slug"
+          inputClassName="text-slate-400"
+          placeholder="titre-de-l-article"
+          disabled
+        />
       </CardContent>
-      <CardContent className="p-6 space-y-6"></CardContent>
     </Card>
   );
 };

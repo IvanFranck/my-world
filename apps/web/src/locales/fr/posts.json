@@ -1,3 +1,22 @@
 {
-  "form": {}
+  "form": {
+    "title": {
+      "min": "Le titre doit contenir au moins 8 caractères."
+    },
+    "content": {
+      "min": "Le contenu ne doit pas être vide."
+    },
+    "categories": {
+      "min": "Veuillez sélectionner au moins une catégorie."
+    },
+    "tags": {
+      "min": "Veuillez sélectionner au moins un tag."
+    },
+    "status": "Veuillez sélectionner un statut valide.",
+    "coverImage": "L'image de couverture doit être une URL valide.",
+    "scheduledAt": "La date prévue doit être une date/heure valide.",
+    "id": {
+      "invalid": "Identifiant de publication invalide."
+    }
+  }
 }

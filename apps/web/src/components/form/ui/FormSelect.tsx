@@ -4,7 +4,7 @@ import {
   FieldValues,
   RegisterOptions,
 } from "react-hook-form";
-import { FormField, inputVariants } from "../FormField";
+import { FormField } from "../FormField";
 import { cn } from "@/src/core/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import {
@@ -79,7 +79,7 @@ export function FormSelect<
   variant,
   onChange,
   ...props
-}: FormSelectProps<TFieldValues, TName> & VariantProps<typeof inputVariants>) {
+}: FormSelectProps<TFieldValues, TName> & VariantProps<typeof selectVariants>) {
   return (
     <FormField
       control={control}

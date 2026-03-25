@@ -1,5 +1,6 @@
 "use client";
 
+import { CreatePostMetaAndSeoBloc } from "@/src/components/app/posts/create-post/CreatePosteMetaAndSeoBloc";
 import { CreatePostParamsBloc } from "@/src/components/app/posts/create-post/CreatePostParamsBloc";
 import { FormInput } from "@/src/components/form/ui/FormInput";
 import { FormSelect } from "@/src/components/form/ui/FormSelect";
@@ -94,8 +95,10 @@ const CreatePostsPage = () => {
             </div>
 
             {/* Sidebar Settings */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <CreatePostParamsBloc />
+
+              <CreatePostMetaAndSeoBloc />
             </div>
           </div>
         </form>
