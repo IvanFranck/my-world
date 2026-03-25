@@ -82,6 +82,7 @@ export function FormInput<
                 inputVariants({ variant }),
                 BeforeIcon && "pl-10",
                 AfterIcon && "pr-10",
+                inputClassName,
               )}
             />
             {AfterIcon && (

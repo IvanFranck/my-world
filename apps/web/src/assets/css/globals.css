@@ -72,7 +72,7 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   /* heigth */
-  --spacing-primary-button: var(--primary-button-heigth);
+  --spacing-primary: var(--primary-button-heigth);
 }
 
 :root {
