@@ -15,11 +15,10 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { type Request } from 'express';
 import { SERVICE_CONFIG, ServiceName } from 'src/common/config/services.config';
 import { CurrentUserId } from 'src/common/decorators/current-user.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
-import { CONTENT_ROUTES_PATHS } from 'src/libs/constants';
+import { ARTICLES_ROUTE_PATHS } from 'src/libs/constants';
 import { buildUrlQuery } from 'src/libs/utils';
 import { ProxyService } from 'src/proxy/proxy.service';
 
@@ -35,7 +34,7 @@ export class ArticlesRoutesController {
   ) {
     return await this.proxy.post(
       ServiceName.CONTENT_SERVICE,
-      CONTENT_ROUTES_PATHS.ARTICLES.ROOT,
+      ARTICLES_ROUTE_PATHS.ROOT,
       dto,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
@@ -54,7 +53,7 @@ export class ArticlesRoutesController {
 
     return await this.proxy.get(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}?${filters}`,
+      `${ARTICLES_ROUTE_PATHS.ROOT}?${filters}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},
@@ -70,7 +69,7 @@ export class ArticlesRoutesController {
   ) {
     return await this.proxy.get(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/${slug}`,
+      `${ARTICLES_ROUTE_PATHS.SLUG.replace(':slug', slug)}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},
@@ -87,7 +86,7 @@ export class ArticlesRoutesController {
     const query = buildUrlQuery({ limit });
     return await this.proxy.get(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/recent?${query}`,
+      `${ARTICLES_ROUTE_PATHS.RECENTS}?${query}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},
@@ -104,7 +103,7 @@ export class ArticlesRoutesController {
     const query = buildUrlQuery({ limit });
     return await this.proxy.get(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/popular?${query}`,
+      `${ARTICLES_ROUTE_PATHS.POPULAR}?${query}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},
@@ -120,7 +119,7 @@ export class ArticlesRoutesController {
   ) {
     return await this.proxy.patch(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/${id}`,
+      `${ARTICLES_ROUTE_PATHS.ID.replace(':id', id)}`,
       dto,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
@@ -133,7 +132,7 @@ export class ArticlesRoutesController {
   async publish(@Param('id') id: string, @CurrentUserId() userId: string) {
     return await this.proxy.patch(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/${id}/publish`,
+      `${ARTICLES_ROUTE_PATHS.PUBLISH.replace(':id', id)}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},
@@ -145,7 +144,7 @@ export class ArticlesRoutesController {
   async archive(@Param('id') id: string, @CurrentUserId() userId: string) {
     return await this.proxy.patch(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/${id}/archive`,
+      `${ARTICLES_ROUTE_PATHS.ARCHIVE.replace(':id', id)}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},
@@ -157,7 +156,7 @@ export class ArticlesRoutesController {
   async delete(@Param('id') id: string, @CurrentUserId() userId: string) {
     return await this.proxy.delete(
       ServiceName.CONTENT_SERVICE,
-      `${CONTENT_ROUTES_PATHS.ARTICLES.ROOT}/${id}`,
+      `${ARTICLES_ROUTE_PATHS.ID.replace(':id', id)}`,
       {
         timeout: SERVICE_CONFIG[ServiceName.CONTENT_SERVICE].timeout,
         headers: userId ? { [USER_ID_HEADER]: userId } : {},

@@ -5,9 +5,3 @@ export const AUTH_ROUTES_PATHS = {
   GET_USER_SESSION: '/api/auth/get-session',
   GET_ACCOUNT_INFOS: '/api/auth/account-info',
 };
-
-export const CONTENT_ROUTES_PATHS = {
-  ARTICLES: {
-    ROOT: '/articles',
-  },
-};
