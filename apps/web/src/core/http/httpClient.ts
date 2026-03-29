@@ -172,12 +172,12 @@ export abstract class HttpClient {
     return response.data;
   }
 
-  protected async put<T>(
+  protected async patch<T>(
     url: string,
     data: unknown,
     options: AxiosRequestConfig = {},
   ): Promise<T> {
-    const response = await this.client.put<T>(url, data, options);
+    const response = await this.client.patch<T>(url, data, options);
     return response.data;
   }
 

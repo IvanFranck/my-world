@@ -1,11 +1,11 @@
-export function buildUrlQuery(
-  filters: Record<string, string | undefined>,
+type QueryValue = string | number | undefined;
+export function buildUrlQuery<T extends Record<string, QueryValue>>(
+  filters: T,
 ): string {
   const urlParams = new URLSearchParams();
-  const keys = Object.keys(filters);
-  keys.forEach((key) => {
-    if (filters[key]) {
-      urlParams.set(key, filters[key]);
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value !== undefined) {
+      urlParams.set(key, value.toString());
     }
   });
 
