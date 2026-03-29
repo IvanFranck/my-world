@@ -1,5 +1,3 @@
-import { IApiResponse, IPaginatedApiResponse } from "@/src/core/types";
-
 export interface CategoriesResponseEntity {
   id: string;
   name: string;
@@ -8,17 +6,6 @@ export interface CategoriesResponseEntity {
   description: string | null;
 }
 
-export type CategoriesApiResponse = IApiResponse<CategoriesResponseEntity>;
-
-export type PaginatedCategoriesApiResponse =
-  IPaginatedApiResponse<CategoriesResponseEntity>;
-
 export interface CategoriesWithArticleCountResponseEntity extends CategoriesResponseEntity {
-  articles: number;
+  articleCount: number;
 }
-
-export type CategoriesWithArticleCountApiResponse =
-  IApiResponse<CategoriesWithArticleCountResponseEntity>;
-
-export type PaginatedCategoriesWithArticleCountApiResponse =
-  IPaginatedApiResponse<CategoriesWithArticleCountResponseEntity>;

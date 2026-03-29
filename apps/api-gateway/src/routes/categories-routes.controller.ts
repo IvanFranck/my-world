@@ -20,6 +20,7 @@ import { Public } from 'src/common/decorators/public.decorator';
 import { CATEGORY_ROUTE_PATHS } from 'src/libs/constants';
 import { ProxyService } from 'src/proxy/proxy.service';
 
+@Public()
 @Controller('categories')
 export class CategoriesRoutesController {
   constructor(private readonly proxy: ProxyService) {}
@@ -42,6 +43,7 @@ export class CategoriesRoutesController {
   }
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   async findAll(@CurrentUserId() userId: string) {
     return await this.proxy.get(
       ServiceName.CONTENT_SERVICE,
@@ -54,7 +56,7 @@ export class CategoriesRoutesController {
   }
 
   @Get(':slug')
-  @Public()
+  @HttpCode(HttpStatus.OK)
   async findBySlug(
     @Param('slug') slug: string,
     @CurrentUserId() userId: string,

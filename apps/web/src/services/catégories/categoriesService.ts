@@ -1,9 +1,8 @@
 import {
-  CategoriesApiResponse,
+  CategoriesResponseEntity,
+  CategoriesWithArticleCountResponseEntity,
   Category,
   CategoryWithArticleCount,
-  PaginatedCategoriesApiResponse,
-  PaginatedCategoriesWithArticleCountApiResponse,
 } from "@/src/types";
 import {
   CreateCategoryRequest,
@@ -16,6 +15,7 @@ import { categoryRoutes } from "./categoryRoutes";
 import { CategoriesMapper } from "./mappers";
 import { IPaginatedQuery, IPaginatedSearchQuery } from "@/src/core/types/query";
 import { buildUrlQuery } from "@/src/core/lib/utils";
+import { IApiResponse } from "@/src/core/types";
 
 export class CategoriesService
   extends HttpClient
@@ -25,7 +25,7 @@ export class CategoriesService
     super(baseUrl || API_BASE_URL);
   }
   async create(data: CreateCategoryRequest): Promise<Category> {
-    const response = await this.post<CategoriesApiResponse>(
+    const response = await this.post<IApiResponse<CategoriesResponseEntity>>(
       categoryRoutes.root,
       data,
     );
@@ -34,7 +34,7 @@ export class CategoriesService
   }
 
   async update(data: UpdateCategoryRequest, id: string): Promise<Category> {
-    const response = await this.patch<CategoriesApiResponse>(
+    const response = await this.patch<IApiResponse<CategoriesResponseEntity>>(
       `${categoryRoutes.id.replace(":id", id)}`,
       data,
     );
@@ -48,23 +48,22 @@ export class CategoriesService
 
   async list(query: IPaginatedQuery): Promise<CategoryWithArticleCount[]> {
     const urlQuery = buildUrlQuery(query);
-    const response =
-      await this.get<PaginatedCategoriesWithArticleCountApiResponse>(
-        `${categoryRoutes.root}?${urlQuery}`,
-      );
+    const response = await this.get<
+      IApiResponse<CategoriesWithArticleCountResponseEntity[]>
+    >(`${categoryRoutes.root}?${urlQuery}`);
 
-    return CategoriesMapper.mapCategoryWithArticleCountFromPaginatedCategoriesWithArticleCountApiResponse(
+    return CategoriesMapper.mapCategoryWithArticleCountFromApiResponseList(
       response,
     );
   }
 
   async search(query: IPaginatedSearchQuery): Promise<Category[]> {
     const urlQuery = buildUrlQuery(query);
-    const response = await this.get<PaginatedCategoriesApiResponse>(
-      `${categoryRoutes.root}?${urlQuery}`,
-    );
+    const response = await this.get<
+      IApiResponse<CategoriesWithArticleCountResponseEntity[]>
+    >(`${categoryRoutes.root}?${urlQuery}`);
 
-    return CategoriesMapper.mapCategoryFromPaginatedCategoriesApiResponse(
+    return CategoriesMapper.mapCategoryWithArticleCountFromApiResponseList(
       response,
     );
   }

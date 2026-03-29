@@ -27,6 +27,7 @@ export const useListCategories = () => {
       };
       return await categoriesService.list(query);
     },
+    retry: false,
     staleTime: DEFAULT_QUERY_STALE_TIME,
   });
 

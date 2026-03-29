@@ -1,4 +1,4 @@
 export const categoryRoutes = {
-  root: "/catgories",
-  id: "/catgories/:id",
+  root: "/categories",
+  id: "/categories/:id",
 };

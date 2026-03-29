@@ -1,15 +1,14 @@
+import { IApiResponse } from "@/src/core/types";
 import {
-  CategoriesApiResponse,
-  CategoriesWithArticleCountApiResponse,
-  PaginatedCategoriesApiResponse,
-  PaginatedCategoriesWithArticleCountApiResponse,
   Category,
   CategoryWithArticleCount,
+  CategoriesWithArticleCountResponseEntity,
+  CategoriesResponseEntity,
 } from "@/src/types";
 
 export class CategoriesMapper {
   static mapCategoryFromCategoriesApiResponse(
-    response: CategoriesApiResponse,
+    response: IApiResponse<CategoriesResponseEntity>,
   ): Category {
     const data = response.data;
     return {
@@ -20,8 +19,8 @@ export class CategoriesMapper {
     };
   }
 
-  static mapCategoryWithArticleCountFromCategoriesWithArticleCountApiResponse(
-    response: CategoriesWithArticleCountApiResponse,
+  static mapCategoryWithArticleCountFromApiResponse(
+    response: IApiResponse<CategoriesWithArticleCountResponseEntity>,
   ): CategoryWithArticleCount {
     const data = response.data;
     return {
@@ -29,14 +28,14 @@ export class CategoriesMapper {
       title: data.name,
       slug: data.slug,
       description: data.description,
-      articles: data.articles,
+      articles: data.articleCount,
     };
   }
 
-  static mapCategoryFromPaginatedCategoriesApiResponse(
-    response: PaginatedCategoriesApiResponse,
+  static mapCategoryFromApiResponse(
+    response: IApiResponse<CategoriesResponseEntity[]>,
   ): Category[] {
-    const data = response.data.data;
+    const data = response.data;
     return data.map((category) => ({
       id: category.id,
       title: category.name,
@@ -45,16 +44,16 @@ export class CategoriesMapper {
     }));
   }
 
-  static mapCategoryWithArticleCountFromPaginatedCategoriesWithArticleCountApiResponse(
-    response: PaginatedCategoriesWithArticleCountApiResponse,
+  static mapCategoryWithArticleCountFromApiResponseList(
+    response: IApiResponse<CategoriesWithArticleCountResponseEntity[]>,
   ): CategoryWithArticleCount[] {
-    const data = response.data.data;
+    const data = response.data;
     return data.map((category) => ({
       id: category.id,
       title: category.name,
       slug: category.slug,
       description: category.description,
-      articles: category.articles,
+      articles: category.articleCount,
     }));
   }
 }

@@ -1,8 +1,11 @@
+"use client";
 import { Button } from "@/src/components/ui/button";
 import { AuthProvider } from "@/src/core/providers/auth-provider/AuthProvider";
+import { useListCategories } from "@/src/hooks/layout/categories";
 import { Plus } from "lucide-react";
 
 const CategoriesPage = () => {
+  const {} = useListCategories();
   return (
     <AuthProvider>
       <div className="container mx-auto py-8 space-y-6">
