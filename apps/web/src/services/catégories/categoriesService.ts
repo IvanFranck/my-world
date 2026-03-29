@@ -11,7 +11,7 @@ import {
 } from "@my-website/types";
 import { ICategoriesService } from "./categoriesService.contract";
 import { HttpClient } from "@/src/core/http/httpClient";
-import { API_BASE_URL } from "@/src/core/lib/constants";
+import { API_BASE_URL } from "@/src/core/constants/app.constant";
 import { categoryRoutes } from "./categoryRoutes";
 import { CategoriesMapper } from "./mappers";
 import { IPaginatedQuery, IPaginatedSearchQuery } from "@/src/core/types/query";

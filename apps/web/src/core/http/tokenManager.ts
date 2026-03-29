@@ -1,4 +1,4 @@
-import { TOKEN_MANAGER_KEY } from "@/src/core/lib/constants";
+import { TOKEN_MANAGER_KEY } from "@/src/core/constants";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 export class TokenManager {

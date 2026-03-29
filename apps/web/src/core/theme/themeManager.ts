@@ -1,4 +1,4 @@
-import { THEME_MANAGER_KEY } from "@/src/core/lib/constants";
+import { THEME_MANAGER_KEY } from "@/src/core/constants/app.constant";
 
 export type Theme = "dark" | "light";
 

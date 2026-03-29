@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/src/core/lib/constants";
+import { API_BASE_URL } from "@/src/core/constants";
 import axios, {
   AxiosError,
   AxiosRequestConfig,

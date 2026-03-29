@@ -4,3 +4,5 @@ export const API_BASE_URL =
 export const TOKEN_MANAGER_KEY = "auth_token";
 
 export const THEME_MANAGER_KEY = "theme";
+
+export const DEFAULT_QUERY_STALE_TIME = 1000 * 60 * 2; // 2 min
